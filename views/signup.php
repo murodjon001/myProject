@@ -6,8 +6,7 @@
 //     $password = $_POST['password'];
 //  var_dump($_POST);
 //     $sql = "INSERT INTO User (name, email, password)
-//             VALUES(:name, :email, :password)
-// ";
+//             VALUES(:name, :email,
 // $stmt = $pdo->prepare($sql);
 // $stmt -> bindParam(':name', $name);
 // $stmt -> bindParam(':email', $email);
@@ -30,6 +29,7 @@
 // }   
 ?>
 <div class='container mt-5'>
+<br>
 <?php
     if(isset($_SESSION['alert']) == 'Iltimos email va parolingizni tekshirib boshqa email, parol kiriting!'){?>
         <div class="alert alert-danger" role="alert">
@@ -43,7 +43,7 @@
     signup($_POST);
     }
 }?>
-
+a<azq
 
     <br>
     <h3> Ro'yxatdan o'tish</h3>

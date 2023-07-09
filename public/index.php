@@ -19,7 +19,9 @@ $routes = [
     '/post/edit' => 'post_edit',
     '/about' => 'about',
     '/price' => 'price',
-    '/post/create' => 'post_create'
+    '/post/create' => 'post_create',
+    '/404' => '404',
+    'post/?' => 'post'
 ];
 
 if(arrayBormi($routes, $uri)){
@@ -28,36 +30,40 @@ if(arrayBormi($routes, $uri)){
         if ($route == $uri){
             require $header;
             require BASE_PATH . $values . $php;
-            require $footer;
-            
-        }
+            require $footer;  
+            break;
+    }else{
+        require BASE_PATH . $notFound;
+        echo "Oxiridsgi else"; 
     }
-}else{
-    require BASE_PATH . $notFound; 
+}
 }
 
 
 
 
+$regex_routes = [
+    '\/post\/(\d+)' => 'post'
+];
+foreach($regex_routes as $key => $route) {
+    if(preg_match('#^'.$key.'$#', $uri, $matches)) {   
+        foreach (echo_id() as $id){
+            if($id == $matches[1]){
+                require $header;
+                require BASE_PATH. $route . '.php';
+                require $footer;  
+                break;
+            } 
+        } 
+    }else{
+        // require $header;
+        require BASE_PATH . $notFound;
+       
+        // require $footer;
+        
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-// $regex_routes = [
-//     '\/post\/(\d+)' => 'post'
-// ];
-// foreach($regex_routes as $key => $route) {
-//     if(preg_match('#^'.$key.'$#', $uri, $matches)) {
-//         require BASE_PATH.'views/'. $route . '.php';
-//     }
-// }
 
 // if (file_exists(BASE_PATH.'views'.$uri.'.php')){
 //     $php = '.php';
@@ -72,4 +78,31 @@ if(arrayBormi($routes, $uri)){
 //     echo '<pre>';
 //     print_r($variable);
 //     echo '</pre>';
+
+
+
+// $regex_routes = [
+//     '\/post\/(\d+)' => 'post'
+//     ];
+// if (strpos('post', $uri) !== false) {
+//     foreach($regex_routes as $key => $route){
+//         var_dump($regex_routes);
+//         if (preg_match($pattern, $uri, $matches)){
+//             $pattern = '#^'.$key.'$#';
+//             foreach (echo_id() as $id){
+//                 if($id == $matches[1]){
+//                     require $header;
+//                     require BASE_PATH. $route . '.php';
+//                     require $footer;  
+//                     break;
+//                 }else{
+//                     // require $header;
+//                     // require BASE_PATH . $notFound;
+//                     // require $footer;
+//                     var_dump($pattern);
+//                     break;                            
+//                 }
+//             }  
+//         }
+//     }   
 // }

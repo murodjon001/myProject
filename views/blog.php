@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['DELETE'])){
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
             <div class="card-body">
-              <p class="card-text"><h5><a href='post.php?id=<?php echo $post['id'] ?>'><?php echo $post['title'] ?></a></h5></p>
+              <p class="card-text"><h5><a href='/post/<?php echo $post['id']?>'><?php echo $post['title'] ?></a></h5></p>
               <div class="d-flex justify-content-between align-items-center">
                 <?php if (isset($_SESSION['name']) <> null){ ?>
                 <div class="btn-group">
@@ -63,12 +63,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['DELETE'])){
 
                     <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
                   </form>
-                  <form method="POST" action='post_edit.php' onsubmit="return confirm('Rostan ham o\'zgartirmoqchimisiz?')">
+                  <form method="POST" action='/post/edit' onsubmit="return confirm('Rostan ham o\'zgartirmoqchimisiz?')">
                     <input name="POST_EDIT" type="hidden">
                     <input type='hidden' name='post_id' value="<?= $post['id'] ?>" >
-                    
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Edit</button> 
                   </form>
                   
                 </div>

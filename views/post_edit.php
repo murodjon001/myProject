@@ -1,12 +1,25 @@
 <?php 
-$id = $_POST['post_id'];
-$statement = $pdo->prepare('SELECT * FROM Post where id = :id ');
-$statement-> execute(['id' => $id]);
-$post = $statement->fetch();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['id'])){
+  post_save($_POST);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' ){
+  $post_id = $_POST['post_id'];
+  post_edit($post_id);
+
+  $session = $_SESSION[0];
+  $title = $session['title'];
+  $body = $session['body'];
+  $id = $session['id'];
+  $form_title = $title;
+  $form_body = $body;
+  $form_id = $id;
+ 
+}
 
 ?>
-
-
+<br>
 <div class="container py-4">
      <header class="pb-3 mb-4 border-bottom">
        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
@@ -14,18 +27,15 @@ $post = $statement->fetch();
         <span class="fs-4">Post yaratish</span>
       </a>
     </header>
-    <form action='post_edit1.php' method="POST" >
+    <form action='/post/edit' method="POST" >
         <div class="mb-3">
             <label  class="form-label">Mavzu</label>
-            <input  class="form-control" name='title' value='<?= $post['title'] ?>' >
+            <input  class="form-control" name='title' value='<?= $form_title; ?>' >
          </div>
         <div class="mb-3">
             <label  class="form-label">Tekst</label>
-            <textarea class="form-control" name='body'  rows="3"><?= $post['body'] ?></textarea>
-            <input name='id' type='hidden' value="<?= $post['id'] ?>">
+            <textarea class="form-control" name='body'  rows="3"><?= $form_body ?></textarea>
+            <input name='id' type='hidden' value="<?= $form_id ?>">
          </div>
-       <a href='post_edit.php?id=<?php echo $edit_id ?>'> <button  type="submit" class="btn btn-outline-warning">Saqlash</button></a>    </form>
+       <button  type="submit" class="btn btn-outline-warning">Saqlash</button>   </form>
  </div>
-
-
-?>

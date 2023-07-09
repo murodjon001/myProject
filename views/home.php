@@ -17,7 +17,7 @@ $title = 'Bosh sahifa';
           <div class="carousel-caption text-start">
             <h1>Example headline.</h1>
             <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="blog.php">Bloglar</a></p>
+            <p><a class="btn btn-lg btn-primary" href="\blog">Bloglar</a></p>
           </div>
         </div>
       </div>

@@ -1,8 +1,15 @@
+<div class='container mt-5'>
+<br>
+<?php
+    if(isset($_SESSION['alert1']) == 'Iltimos email va parolingizni tekshirib qaytadan kiriting!'){?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['alert1'];
+                          
+    }?>
+        </div>
 <?php 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $_SESSION['authentificated'] = 'progress';
     login($_POST);
-    // header('Location:function.php');
 }
 ?>
 <div class='container mt-5'>
@@ -22,48 +29,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<?php
- 
-
-
-// if (isset($_SERVER['REQUEST_METHOD']) == 'POST' and isset($_SESSION['name']) == null){
-
-//     $email = $_POST['email'];
-//     $password = $_POST['password'];
-
-//     $statement = $pdo ->prepare('SELECT * FROM User WHERE email = :email AND password = :password');
-   
-//     $statement ->bindParam(':email', $email);
-//     $statement -> bindParam(':password', $password);
-    
-//     $statement-> execute();
-//     $result = $statement->fetch();
-    
-//     if ($result['email'] == $email and $result['password'] == $password){
-        
-       
-//         $statement = $pdo->prepare('SELECT name from User WHERE password = :password');
-//         try{
-//             $statement-> execute([
-//                 'password' => $password
-//             ]);  
-//             $name1 = $statement->fetch();
-//             $_SESSION['name'] = $name1['name'];
-
-            
-//                 header('Location:/');
-            
-            
-//         }catch (PDOException $e) {
-//             echo 'Ishlmadi'. $e;
-//         }
-       
-      
-//     }else{  
-//         echo 'ishlamadi';
-//     }
-// }
-?>
-
-
-
