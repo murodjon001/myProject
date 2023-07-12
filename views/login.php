@@ -28,4 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <br>
+    <h6><a href='/password/reset'>forgot password</a></h6>
 </div>
+

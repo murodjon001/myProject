@@ -1,6 +1,8 @@
 <?php
 session_start();
+
 define('BASE_PATH', __DIR__ . '/../views/');
+require 'mail.php';
 require BASE_PATH . '/../database.php';
 require 'function.php';
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
@@ -20,8 +22,8 @@ $routes = [
     '/about' => 'about',
     '/price' => 'price',
     '/post/create' => 'post_create',
+    '/password/reset' => 'reset_password',
     '/404' => '404',
-    'post/?' => 'post'
 ];
 
 if(arrayBormi($routes, $uri)){
@@ -32,11 +34,9 @@ if(arrayBormi($routes, $uri)){
             require BASE_PATH . $values . $php;
             require $footer;  
             break;
-    }else{
-        require BASE_PATH . $notFound;
-        echo "Oxiridsgi else"; 
-    }
-}
+        }}
+}else{
+    require BASE_PATH . $notFound;
 }
 
 
@@ -57,7 +57,7 @@ foreach($regex_routes as $key => $route) {
         } 
     }else{
         // require $header;
-        require BASE_PATH . $notFound;
+        // require BASE_PATH . $notFound;
        
         // require $footer;
         

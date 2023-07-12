@@ -43,8 +43,6 @@
     signup($_POST);
     }
 }?>
-a<azq
-
     <br>
     <h3> Ro'yxatdan o'tish</h3>
     <div class='mt-5' >

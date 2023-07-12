@@ -6,7 +6,7 @@ function arrayBormi($array, $value){
 }
 
 function signup($data){
-    var_dump($data);
+    
         $password = $data['password'];
         $hashPass = password_hash($password, PASSWORD_DEFAULT);  
     /* password_hash funksyasining $options = $cost =12 parametridan foydalanish xavfsizlikni 
@@ -31,7 +31,6 @@ function signup($data){
     $stmt ->bindParam(':password', $password);
     try {
         $stmt->execute(); 
-        echo 'ishladi';
         header("Location:/login"); 
         session_destroy();
 
@@ -46,7 +45,7 @@ function login($data){
     global $pdo;
     $sql = ('SELECT * FROM User');
     $stmt = $pdo-> prepare($sql);
-    $stmt -> execute(); var_dump($data);
+    $stmt -> execute(); 
     $result = $stmt->fetchAll();
     $email = $data['email'];
     $password = $data['password'];
