@@ -6,6 +6,7 @@ define('BASE_PATH', __DIR__ . '/../views/');
 require BASE_PATH . '/../database.php';
 require 'function.php';
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+$pass_change = 'password_change';
 $php = '.php';
 $notFound =  '404' . $php;
 $header = BASE_PATH . 'includes/header' . $php;
@@ -25,24 +26,26 @@ $routes = [
     '/password/reset' => 'reset_password',
     '/404' => '404',
     '/password/send/mail' => 'password_reset_send_mail',
+    'password_change_done' => '/password_reset_done',
     
 ];
-var_dump($_SESSION);
-if(isset($_SESSION) and $_SESSION['uniqId'] == $uri){
-    header('Location:/password/change');
-    die;
-}else{
-    echo $uri;
-}
+
+
 if(arrayBormi($routes, $uri)){
     foreach ($routes as $route => $values){
     
         if ($route == $uri){
-            // require $header;
+            require $header;
             require BASE_PATH . $values . $php;
             require $footer;  
             break;
         }}
+}elseif(isset($_SESSION) and isset($_SESSION['uniqId']) == $uri){
+    require $header;
+    require BASE_PATH . $pass_change . $php;
+    require $footer;
+    die;
+
 }else{
     require BASE_PATH . $notFound;
 }

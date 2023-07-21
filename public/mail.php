@@ -35,6 +35,6 @@ function send_mail($email, $uniqId=null){
     $mail -> send();
     $_SESSION['uniqId'] = '/' . $uniqId;
     // header('Location:/password/send/mail');
-    header('Location:/');
+    header('Location:/password/send/mail');
 
 }

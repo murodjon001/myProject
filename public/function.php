@@ -137,9 +137,6 @@ function password_reset($email){
     $result = $validation->validate_email();
     if ($result == true){
         $url_ins = uniqid();
-        $get_uniqidqw = new UniqId($url_ins);
-        // $email_id = ['email'=>$email, 'uniqId'=> $url_ins];
-        // redirect('/../public/mail.php', $email_id);
         send_mail($email, $url_ins);
   
     }else{
@@ -176,18 +173,16 @@ class Validation{
     }
 } 
 
-class UniqId{
-    private $uniqid;
-    public function __construct($uniqid){
-        $this-> uniqid = $uniqid;
-    }
-    public function get_uniqid(){
-        return $this-> uniqid;
-    }
-
-}
-function password_reset_done($uniqeid){
+function password_reset_done($data){
     global $pdo;
-
+    var_dump($data);
+    $password = $data['password'];
+    $email = $data['email'];
+    $hashPass = password_hash($password, PASSWORD_DEFAULT);
+    $sql = ('UPDATE User SET password = :password WHERE email = :email');
+    $stmt = $pdo-> prepare($sql);
+    $stmt-> bindParam(':email', $email);
+    $stmt-> bindParam(':password', $hashPass);
+    $stmt ->execute();
+    header('Location:/password_change_done');
 }
-
