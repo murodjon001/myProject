@@ -1,6 +1,6 @@
 <?php 
 require '/var/www/myProject/database.php';
-
+require'/var/www/myProject/public/mail.php';
 function arrayBormi($array, $value){
     return (array_key_exists($value, $array));
 }
@@ -132,6 +132,62 @@ function echo_id(){
     return($result);
 }
 
+function password_reset($email){
+    $validation = new Validation($email);
+    $result = $validation->validate_email();
+    if ($result == true){
+        $url_ins = uniqid();
+        $get_uniqidqw = new UniqId($url_ins);
+        // $email_id = ['email'=>$email, 'uniqId'=> $url_ins];
+        // redirect('/../public/mail.php', $email_id);
+        send_mail($email, $url_ins);
+  
+    }else{
+        $not_email = ['key'=>"Bunday email ma'lumotlar bazasida topilmadi!"];
+        redirect('password/reset', $not_email);
+    }
+}
 
+class Validation{
+    private $email;
+    private $pdo;
+    public function __construct($email=null){
+        global $pdo;
+        $this -> pdo = $pdo;
+        $this -> email = $email;
+    }
+   
+    public function validate_email(){
+        $sql = ('SELECT email from User');
+        $stmt = $this -> pdo->prepare($sql);
+        $stmt-> execute();
+        $result = $stmt-> fetchAll();
+        $result_qty = count($result);
+        $fin_result =[]; 
+        foreach($result as $d => $a){
+            $fin_result[] =$a['email'];
+        }
+        $valid = in_array($this->email,$fin_result);
+        if ($valid == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+} 
 
-// Xulas $d bu  array. Arrayning id sini olasanda yangi arrayning id kalitiga qiymat qi
+class UniqId{
+    private $uniqid;
+    public function __construct($uniqid){
+        $this-> uniqid = $uniqid;
+    }
+    public function get_uniqid(){
+        return $this-> uniqid;
+    }
+
+}
+function password_reset_done($uniqeid){
+    global $pdo;
+
+}
+

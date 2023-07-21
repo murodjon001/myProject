@@ -2,7 +2,7 @@
 session_start();
 
 define('BASE_PATH', __DIR__ . '/../views/');
-require 'mail.php';
+// require 'mail.php';
 require BASE_PATH . '/../database.php';
 require 'function.php';
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
@@ -24,13 +24,21 @@ $routes = [
     '/post/create' => 'post_create',
     '/password/reset' => 'reset_password',
     '/404' => '404',
+    '/password/send/mail' => 'password_reset_send_mail',
+    
 ];
-
+var_dump($_SESSION);
+if(isset($_SESSION) and $_SESSION['uniqId'] == $uri){
+    header('Location:/password/change');
+    die;
+}else{
+    echo $uri;
+}
 if(arrayBormi($routes, $uri)){
     foreach ($routes as $route => $values){
     
         if ($route == $uri){
-            require $header;
+            // require $header;
             require BASE_PATH . $values . $php;
             require $footer;  
             break;
