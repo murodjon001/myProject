@@ -26,7 +26,7 @@ $routes = [
     '/password/reset' => 'reset_password',
     '/404' => '404',
     '/password/send/mail' => 'password_reset_send_mail',
-    'password_change_done' => '/password_reset_done',
+    '/password/change/done' => 'password_reset_done',
     
 ];
 

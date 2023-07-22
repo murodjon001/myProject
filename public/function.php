@@ -148,6 +148,8 @@ function password_reset($email){
 class Validation{
     private $email;
     private $pdo;
+    private $password;
+    private $password_new;
     public function __construct($email=null){
         global $pdo;
         $this -> pdo = $pdo;
@@ -171,6 +173,28 @@ class Validation{
             return false;
         }
     }
+    public function validatePassword($password, $password_new){
+        $this -> password_new = $password_new;
+        $this->password = $password;
+        $sql = ('SELECT password FROM User');
+        $stmt = $this -> pdo-> prepare($sql);
+        $stmt ->execute();
+        $result = $stmt -> fetchAll();
+        if (isset($result)){
+            foreach ($result as $result){
+                $password_db = $result['password'];
+                if (password_verify($this->password, $password_db)){
+                    $stmt-> prepare('UPDATE User SET password = :password_new WHERE password = :password_db');
+                    $stmt ->bindParam(':password_new', $this->password_new);
+                    $stmt ->bindParam(':password_db', $password_db);
+                    $stmt -> execute();
+                    redirect('/login', $data['success']='Parolingiz muvaffaqiyatli o\'zgartirildi!');
+                    die;
+                }
+            }echo 'password yuq';
+        }
+        
+    }
 } 
 
 function password_reset_done($data){
@@ -184,5 +208,8 @@ function password_reset_done($data){
     $stmt-> bindParam(':email', $email);
     $stmt-> bindParam(':password', $hashPass);
     $stmt ->execute();
-    header('Location:/password_change_done');
+    header('Location:/password/change/done');
 }
+$a = new Validation();
+$test = $a-> validatePassword('33333');
+echo $test;

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 ?>
 <div class='container mt-5'>
-<br>
+<br><?php var_dump($_SESSION) //parolni o'zgartirish uchun forma yasash kerak?> 
 <h2>Log In </h2>
 <div class='mt-5'>
    <form action='/login' method='POST'>
